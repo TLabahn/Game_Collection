@@ -1,8 +1,9 @@
+#include <SDL2/SDL.h>
+#include <SDL_image.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
 #include <stdbool.h>
-#include <SDL2/SDL.h>
 #include "SDL_functions.h"
 #include "Game_functions.h"
 
@@ -43,8 +44,12 @@ int main(int argc, char* args[]){
 						}
 					}
 				}
-				SDL_BlitSurface( gMouseSurfaces[ MENU_BACKGROUND ], NULL, gScreenSurface, NULL);
-				SDL_UpdateWindowSurface( gWindow );
+				//Clear screen
+				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+				SDL_RenderClear( gRenderer );
+
+				//Update screen
+				SDL_RenderPresent( gRenderer );
 			}
 		}
 	}
