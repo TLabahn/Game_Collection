@@ -1,8 +1,10 @@
+#include <SDL2/SDL.h>
+#include <SDL_image.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
 #include <stdbool.h>
-#include <SDL2/SDL.h>
+
 
 
 //Definiert einen Knopf
@@ -35,4 +37,14 @@ bool MouseOverButton(struct Button test){
     } else {
         return true;
     }
+}
+
+
+int WhichButton(struct Button a[], int n){
+
+    for(int i=0; i<n; i++){
+        if(MouseOverButton(a[i]) == 1)
+        return i+1;
+    }
+    return 0;
 }
