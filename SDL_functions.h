@@ -4,7 +4,11 @@
 #include <stdlib.h>
 #include <string>
 #include <stdbool.h>
+#include <cmath>
 
+
+/*Generelle Funktionen, Makros, Globale Variablen etc. die im Zusammenhang zu SDL2 stehen
+*/
 
 
 //Bildschirmauflösung
@@ -51,7 +55,7 @@ bool init()
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		gWindow = SDL_CreateWindow( "Game_Collection.exe", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gWindow == NULL )
 		{
 			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -136,6 +140,10 @@ SDL_Texture* loadTexture( std::string path )
 
 	return newTexture;
 }
+
+
+
+
 
 
 

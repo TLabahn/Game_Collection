@@ -4,12 +4,18 @@
 #include <stdlib.h>
 #include <string>
 #include <stdbool.h>
+#include <cmath>
 #include "SDL_functions.h"
 #include "Game_functions.h"
 
 
 
 int main(int argc, char* args[]){
+
+    struct Button Button_1 = { SCREEN_WIDTH * 2 / 6, SCREEN_HEIGHT * 1 / 6, SCREEN_WIDTH * 2 / 6, SCREEN_HEIGHT * 1 / 5};
+    struct Button Button_2 = { SCREEN_WIDTH * 2 / 6, SCREEN_HEIGHT * 4 / 6, SCREEN_WIDTH * 2 / 6, SCREEN_HEIGHT * 1 / 5};
+
+    struct Button MenuButtons[2] = {Button_1, Button_2};
 
     //Start up SDL and create window
 	if( !init() )
@@ -43,14 +49,59 @@ int main(int argc, char* args[]){
                             quit = true;
 						}
 					}
+					if ( e.type == SDL_QUIT ){
+                        quit = true;
+					}
+					if( e.type = SDL_MOUSEBUTTONUP ){
+                        switch( WhichButton(MenuButtons, 2)){
+                            case 1:
+                                //TicTacToe();
+                                break;
+
+                            case 2:
+                                break;
+
+                            default:
+                                break;
+
+                        }
+					}
 				}
-				//Clear screen
-				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+				//Hintergrund
+				SDL_SetRenderDrawColor( gRenderer, 000, 229, 238, 0xFF );
 				SDL_RenderClear( gRenderer );
+
+                //malt die Menubottons
+				Rechteck_voll(SCREEN_WIDTH * 2 / 6 + 1, SCREEN_HEIGHT * 1 / 6 + 1, SCREEN_WIDTH * 2 / 6 - 1, SCREEN_HEIGHT * 1 / 5 - 1, 222, 222, 222);
+
+                Rechteck_voll(SCREEN_WIDTH * 2 / 6 + 1, SCREEN_HEIGHT * 4 / 6 + 1, SCREEN_WIDTH * 2 / 6 - 1, SCREEN_HEIGHT * 1 / 5 - 1, 222, 222, 222);
+
+				Rechteck_rand(SCREEN_WIDTH * 2 / 6, SCREEN_HEIGHT * 1 / 6, SCREEN_WIDTH * 2 / 6, SCREEN_HEIGHT * 1 / 5, 000, 000, 000);
+
+				Rechteck_rand(SCREEN_WIDTH * 2 / 6, SCREEN_HEIGHT * 4 / 6, SCREEN_WIDTH * 2 / 6, SCREEN_HEIGHT * 1 / 5, 000, 000, 000);
+
+                //Lässt die Buttons beim mouseover leuchten
+				switch(WhichButton(MenuButtons, 2)){
+                    case 1:
+                        Rechteck_voll(SCREEN_WIDTH * 2 / 6 + 1, SCREEN_HEIGHT * 1 / 6 + 1, SCREEN_WIDTH * 2 / 6 - 2, SCREEN_HEIGHT * 1 / 5 - 2, 242, 242, 242);
+                        break;
+
+                    case 2:
+                        Rechteck_voll(SCREEN_WIDTH * 2 / 6 + 1, SCREEN_HEIGHT * 4 / 6 + 1, SCREEN_WIDTH * 2 / 6 - 2, SCREEN_HEIGHT * 1 / 5 - 2, 242, 242, 242);
+                        break;
+
+                    default:
+                        break;
+                }
+
 
 				//Update screen
 				SDL_RenderPresent( gRenderer );
-			}
+
+/*				int x, y;
+				SDL_GetMouseState(&x, &y);
+				printf("x: %d, y: %d\n", x, y);
+*/			}
 		}
 	}
 	close();
