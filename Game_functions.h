@@ -4,15 +4,19 @@
 #include <stdlib.h>
 #include <string>
 #include <stdbool.h>
+#include <cmath>
 
+
+/*Generelle Funktionen, Makros, Globale Variablen etc.
+*/
 
 
 //Definiert einen Knopf
 struct Button{
-    int edgeleft;
-    int edgeright;
-    int edgetop;
-    int edgebottom;
+    int x;
+    int y;
+    int width;
+    int heigth;
 };
 
 
@@ -22,16 +26,16 @@ bool MouseOverButton(struct Button test){
     int x, y;
     SDL_GetMouseState(&x, &y);
 
-    if(x < test.edgeleft){
+    if(x < test.x){
         return false;
 
-    } else if(x > test.edgeright){
+    } else if(x > test.x + test.width){
         return false;
 
-    } else if(y < test.edgetop){
+    } else if(y < test.y){
         return false;
 
-    }else if(y > test.edgebottom){
+    }else if(y > test.y + test.heigth){
         return false;
 
     } else {
@@ -48,3 +52,31 @@ int WhichButton(struct Button a[], int n){
     }
     return 0;
 }
+
+
+//malt ein ausgefülltes Rechteck. Inputs: x = koordinate der linken oberen Ecke, y = koordinate der linken oberen ecke, width = breite, height = höhe, RGB = Farbcode;
+void Rechteck_voll(int x, int y, int width, int height, int R, int G, int B){
+    SDL_Rect fillButton = { x, y, width, height};
+    SDL_SetRenderDrawColor( gRenderer, R, G, B, 0xFF );
+	SDL_RenderFillRect( gRenderer, &fillButton );
+}
+
+void Rechteck_rand(int x, int y, int width, int heigth, int R, int G, int B){
+    SDL_Rect outlineButton = { x, y, width, heigth};
+    SDL_SetRenderDrawColor( gRenderer, R, G, B, 0xFF );
+	SDL_RenderDrawRect( gRenderer, &outlineButton );
+}
+
+
+
+/*Funktionen die im Zusammenhang zu Tic Tac Toe stehen.
+*/
+
+
+
+
+
+
+
+/*Funktionen die im Zusammenhang zu Tic Tac Toe Advanced stehen.
+*/
