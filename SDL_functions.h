@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
@@ -14,6 +15,9 @@
 //Bildschirmauflösung
 const int SCREEN_WIDTH = 1200;
 const int SCREEN_HEIGHT = 800;
+
+SDL_Color White = {255, 255, 255};
+SDL_Color Black = {000, 000, 000};
 
 
 //Initialisiert SDL2 Funktionen
