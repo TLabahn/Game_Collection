@@ -38,6 +38,8 @@ SDL_Window* gWindow = NULL;
 //The window renderer
 SDL_Renderer* gRenderer = NULL;
 
+TTF_Font * font = TTF_OpenFont("arial.ttf", 25);
+
 
 bool init()
 {
@@ -111,6 +113,10 @@ void close()
 	SDL_DestroyWindow( gWindow );
 	gWindow = NULL;
 	gRenderer = NULL;
+
+	TTF_CloseFont(font);
+	//SDL_DestroyTexture(texture);
+    //SDL_FreeSurface(surface);
 
 	//Quit SDL subsystems
 	IMG_Quit();

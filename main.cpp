@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
@@ -52,13 +53,14 @@ int main(int argc, char* args[]){
 					if ( e.type == SDL_QUIT ){
                         quit = true;
 					}
-					if( e.type = SDL_MOUSEBUTTONUP ){
+					if( e.type == SDL_MOUSEBUTTONDOWN){
                         switch( WhichButton(MenuButtons, 2)){
                             case 1:
-                                //TicTacToe();
+                                //quit = TicTacToe();
                                 break;
 
                             case 2:
+                                quit = TicTacToeAdvanced();
                                 break;
 
                             default:
@@ -72,9 +74,9 @@ int main(int argc, char* args[]){
 				SDL_RenderClear( gRenderer );
 
                 //malt die Menubottons
-				Rechteck_voll(SCREEN_WIDTH * 2 / 6 + 1, SCREEN_HEIGHT * 1 / 6 + 1, SCREEN_WIDTH * 2 / 6 - 1, SCREEN_HEIGHT * 1 / 5 - 1, 222, 222, 222);
+				Rechteck_voll(SCREEN_WIDTH * 2 / 6 + 1, SCREEN_HEIGHT * 1 / 6 + 1, SCREEN_WIDTH * 2 / 6 - 1, SCREEN_HEIGHT * 1 / 5 - 2, 158, 158, 158);
 
-                Rechteck_voll(SCREEN_WIDTH * 2 / 6 + 1, SCREEN_HEIGHT * 4 / 6 + 1, SCREEN_WIDTH * 2 / 6 - 1, SCREEN_HEIGHT * 1 / 5 - 1, 222, 222, 222);
+                Rechteck_voll(SCREEN_WIDTH * 2 / 6 + 1, SCREEN_HEIGHT * 4 / 6 + 1, SCREEN_WIDTH * 2 / 6 - 1, SCREEN_HEIGHT * 1 / 5 - 2, 158, 158, 158);
 
 				Rechteck_rand(SCREEN_WIDTH * 2 / 6, SCREEN_HEIGHT * 1 / 6, SCREEN_WIDTH * 2 / 6, SCREEN_HEIGHT * 1 / 5, 000, 000, 000);
 

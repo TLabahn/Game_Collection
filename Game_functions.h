@@ -84,7 +84,7 @@ void Rechteck_rand(int x, int y, int width, int heigth, int R, int G, int B){
 
 bool WinCondition();
 
-void TicTacToeAdvancedFeld();
+bool TicTacToeAdvancedFeld();
 
 int TicTacToeAdvancedZug();
 
@@ -96,13 +96,15 @@ void Drehen();
 
 int Feld[6][6] = {0};
 
-void TicTacToeAdvancedFeld(struct Button* Buttons){
+bool TicTacToeAdvancedFeld(struct Button* Buttons){
 
     //Hintergrund
-    SDL_SetRenderDrawColor( gRenderer, 102, 205, 170, 0xFF );
+    SDL_SetRenderDrawColor( gRenderer, 000, 139, 139, 0xFF );
+
     if(WinCondition() == true){
-        SDL_SetRenderDrawColor( gRenderer, 000, 255, 000, 0xFF );
+        SDL_SetRenderDrawColor( gRenderer, 255, 215, 000, 0xFF );
     }
+
     SDL_RenderClear( gRenderer );
 
     Rechteck_rand( SCREEN_WIDTH * 3 / 12, SCREEN_HEIGHT * 1 / 8, SCREEN_WIDTH / 2, SCREEN_HEIGHT * 3 / 4, 000, 000, 000);
@@ -116,9 +118,9 @@ void TicTacToeAdvancedFeld(struct Button* Buttons){
     Rechteck_voll( SCREEN_WIDTH * 3 / 12, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_WIDTH / 160, 000, 000, 000);
 
     for(int i = 0; i < 36; i++){
-        if(Feld[i % 6][i / 6] == 1){
+        if(Feld[i / 6][i % 6] == 1){
             Rechteck_voll( Buttons[i + 1].x + 5, Buttons[i + 1].y + 5, Buttons[i + 1].width - 10, Buttons[i + 1].heigth - 10, 255, 255, 255);
-        } else if(Feld[i % 6][i / 6] == 2){
+        } else if(Feld[i / 6][i % 6] == 2){
             Rechteck_voll( Buttons[i + 1].x + 5, Buttons[i + 1].y + 5, Buttons[i + 1].width - 10, Buttons[i + 1].heigth - 10, 000, 000, 000);
         }
     }
@@ -128,92 +130,162 @@ void TicTacToeAdvancedFeld(struct Button* Buttons){
         Rechteck_voll(Buttons[i].x + 1, Buttons[i].y + 1, Buttons[i].width - 2, Buttons[i].heigth - 2, 158, 158, 158);
     }
 
-/*    TTF_Font* Sans24 = TTF_OpenFont("Sans.ttf", 24);
-    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans24, "Exit to main Menu", Black);
-    SDL_Texture* Message = SDL_CreateTextureFromSurface(gRenderer, surfaceMessage);
-    SDL_Rect Exit_to_Menu = { 50, 50, 200, 200};
-    SDL_RenderCopy(gRenderer, Message, NULL, &Exit_to_Menu);
-*/
+    SDL_Color color_1 = { 000, 000, 000};
+    SDL_Surface *surface = TTF_RenderText_Solid(font, "Menu", color_1);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface( gRenderer, surface);
+    SDL_RenderCopy(gRenderer, texture, NULL, NULL);
 
     int tile = WhichButton(Buttons, 45) - 1;
 
     //Lässt Buttons Leuchten
     switch(tile + 1){
+
         case 1:
             Rechteck_voll( SCREEN_WIDTH / 40 + 1, SCREEN_HEIGHT / 40 + 1, SCREEN_WIDTH / 10 - 2, SCREEN_WIDTH / 20 - 2, 242, 242, 242);
             break;
         case 2:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 3:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 4:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 5:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 6:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 7:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 8:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 9:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 10:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 11:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 12:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 13:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 14:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 15:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 16:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 17:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 18:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 19:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 20:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 21:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 22:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 23:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 24:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 25:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 26:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 27:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 28:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 29:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 30:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 31:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
         case 32:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 33:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 34:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 35:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 36:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 37:
-            Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255); break;
+            if(Feld[(tile-1) / 6][(tile-1) % 6] == 0)
+                Rechteck_voll(Buttons[tile].x, Buttons[tile].y, Buttons[tile].width, Buttons[tile].heigth, 152, 255, 255);
+            break;
         case 38:
             Rechteck_voll(Buttons[tile].x + 1, Buttons[tile].y + 1, Buttons[tile].width - 2, Buttons[tile].heigth - 2, 242, 242, 242); break;
         case 39:
@@ -259,6 +331,7 @@ bool WinCondition(){
                 spieler1 = spieler2 = 0;
             }
         }
+        spieler1 = spieler2 = 0;
     }
     spieler1 = 0;
     spieler2 = 0;
@@ -280,6 +353,7 @@ bool WinCondition(){
                 spieler1 = spieler2 = 0;
             }
         }
+        spieler1 = spieler2 = 0;
     }
     return false;
 }
@@ -288,8 +362,8 @@ void TicTacToeAdvancedZug(struct Button arr[], int nummer, int* spieler){
 
     int x, y;
 
-    y = nummer / 6;
-    x = nummer % 6;
+    x = nummer / 6;
+    y = nummer % 6;
 
     if(Feld[x][y] == 0){
 
@@ -302,78 +376,119 @@ void TicTacToeAdvancedZug(struct Button arr[], int nummer, int* spieler){
     }
 }
 
-void Drehen(struct Button* arr, int viertel, char richtung){
+void Drehen(int viertel, char richtung){
 
-    int matrix[3][3], x, y, a;
+    int temp[3][3];
 
-    struct Button temp[3][3], Button2D[3][3];
-
-    for(int i = 0; i < 3; i++){
-        for(int j = 0; j < 3; j++){
-            x = j + 6 * i + i * 3;
-
-            Button2D[i][j] = arr[x + 1];
-
-            printf("Der Knopf im Feld %d ist in der Matrix auf der Position %d%d\n", x, i, j);
-
-        }
-    }
-    printf("\n\n");
-
-    //In welchem Viertel befinde ich mich
+    //erstes Viertel
     if( viertel == 1){
 
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 3; j++){
-                x = j + 6 * i + 1;
+        if(richtung == 'l'){
 
-                Button2D[i][j] = arr[x + 1];
-
-                printf("Der Knopf im Feld %d ist in der Matrix auf der Position %d%d\n", x, i, j);
-
-            }
-        }
-        printf("\n\n");
-
-        //In welche Richtung wird gedreht
-        if( richtung == 'l'){
             for(int i = 0, m = 2; i < 3; i++, m--){
-                for(int j = 0, n = 0; j < 3; j++, n++){
-                    printf("%d%d -> %d%d\nFeld: %d\n", i+1, j+1, n+1, m+1, Feld[i][j]);
-                    matrix[n][m] = Feld[i][j];
-
-                    temp[n][m] = Button2D[i][j];
+                for (int j = 0; j < 3; j++){
+                    temp[j][m] = Feld[i][j];
                 }
             }
-        } else if( richtung == 'r'){
-            for(int i = 0, m = 0; i < 3; i++, m++){
-                for(int j = 0, n = 2; j < 3; j++, n--){
-                    matrix[n][m] = Feld[i][j];
 
-                    temp[n][m] = Button2D[i][j];
+        } else if(richtung == 'r'){
+            for(int i = 0; i < 3; i++){
+                for(int j = 0, n = 2; j < 3; j++, n--){
+                    temp[n][i] = Feld[i][j];
                 }
             }
         }
 
-        //Zurückschreiben
+        //zuückschreiben
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
-                a = i * 3 + j + i * 3 + 1;
-
-                printf("Das Feld %d wird an die Stelle %d%d geschrieben\n", a, i+1, j+1);
-
-                Feld[i][j] = matrix[i][j];
-
-                arr[a] = temp[i][j];
+                Feld[i][j] = temp[i][j];
             }
         }
 
-
+    //zweites Viertel
     } else if( viertel == 2){
 
+        if(richtung == 'l'){
+
+            for(int i = 0, m = 2; i < 3; i++, m--){
+                for(int j = 3, n = 0; j < 6; j++, n++){
+                    temp[n][m] = Feld[i][j];
+                }
+            }
+
+        } else if(richtung == 'r'){
+
+            for(int i = 0, m = 0; i < 3; i++, m++){
+                for(int j = 3, n = 2; j < 6; j++, n--){
+                    temp[n][m] = Feld[i][j];
+                }
+            }
+
+        }
+
+        //zuückschreiben
+        for(int i = 0; i < 3; i++){
+            for(int j = 3; j < 6; j++){
+                Feld[i][j] = temp[i][j-3];
+            }
+        }
+
+    //drittes Viertel
     } else if( viertel == 3){
 
+        if(richtung == 'l'){
+
+            for(int i = 3, m = 2; i < 6; i++, m--){
+                for(int j = 0, n = 0; j < 3; j++, n++){
+                    temp[n][m] = Feld[i][j];
+                }
+            }
+
+        } else if(richtung == 'r'){
+
+            for(int i = 3, m = 0; i < 6; i++, m++){
+                for(int j = 0, n = 2; j < 3; j++, n--){
+                    temp[n][m] = Feld[i][j];
+                }
+            }
+
+        }
+
+        //zuückschreiben
+        for(int i = 3; i < 6; i++){
+            for(int j = 0; j < 3; j++){
+                Feld[i][j] = temp[i-3][j];
+            }
+        }
+
+    //viertes Viertel
     } else if( viertel == 4){
+
+        if(richtung == 'l'){
+
+            for(int i = 3, m = 2; i < 6; i++, m--){
+                for(int j = 3, n = 0; j < 6; j++, n++){
+                    temp[n][m] = Feld[i][j];
+                }
+            }
+
+        } else if(richtung == 'r'){
+
+            for(int i = 3, m = 0; i < 6; i++, m++){
+                for(int j = 3, n = 2; j < 6; j++, n--){
+                    temp[n][m] = Feld[i][j];
+                }
+            }
+
+        }
+
+        //zuückschreiben
+        for(int i = 3; i < 6; i++){
+            for(int j = 3; j < 6; j++){
+                Feld[i][j] = temp[i-3][j-3];
+            }
+        }
 
     }
 }
@@ -578,13 +693,35 @@ bool TicTacToeAdvanced(){
                         TicTacToeAdvancedZug(&TicTacToeAdvancedButtons[tile], tile - 1, &spieler);
                         break;
                     case 38:
-                        Drehen(TicTacToeAdvancedButtons, 1, 'l');
+                        Drehen(1, 'r');
+                        break;
+                    case 39:
+                        Drehen(1, 'l');
+                        break;
+                    case 40:
+                        Drehen(2, 'r');
+                        break;
+                    case 41:
+                        Drehen(2, 'l');
+                        break;
+                    case 42:
+                        Drehen(3, 'r');
+                        break;
+                    case 43:
+                        Drehen(3, 'l');
+                        break;
+                    case 44:
+                        Drehen(4, 'r');
+                        break;
+                    case 45:
+                        Drehen(4, 'l');
+                        break;
+                    default:
                         break;
                 }
 
 			}
-
-            TicTacToeAdvancedFeld(TicTacToeAdvancedButtons);
+			TicTacToeAdvancedFeld(TicTacToeAdvancedButtons);
         }
 
     }
