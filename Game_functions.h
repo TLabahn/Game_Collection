@@ -84,7 +84,7 @@ void Rechteck_rand(int x, int y, int width, int heigth, int R, int G, int B){
 
 bool WinCondition();
 
-bool TicTacToeAdvancedFeld();
+void TicTacToeAdvancedFeld();
 
 int TicTacToeAdvancedZug();
 
@@ -96,7 +96,7 @@ void Drehen();
 
 int Feld[6][6] = {0};
 
-bool TicTacToeAdvancedFeld(struct Button* Buttons){
+void TicTacToeAdvancedFeld(struct Button* Buttons){
 
     //Hintergrund
     SDL_SetRenderDrawColor( gRenderer, 000, 139, 139, 0xFF );
@@ -129,11 +129,6 @@ bool TicTacToeAdvancedFeld(struct Button* Buttons){
         Rechteck_rand(Buttons[i].x, Buttons[i].y, Buttons[i].width, Buttons[i].heigth, 000, 000, 000);
         Rechteck_voll(Buttons[i].x + 1, Buttons[i].y + 1, Buttons[i].width - 2, Buttons[i].heigth - 2, 158, 158, 158);
     }
-
-    SDL_Color color_1 = { 000, 000, 000};
-    SDL_Surface *surface = TTF_RenderText_Solid(font, "Menu", color_1);
-    SDL_Texture *texture = SDL_CreateTextureFromSurface( gRenderer, surface);
-    SDL_RenderCopy(gRenderer, texture, NULL, NULL);
 
     int tile = WhichButton(Buttons, 45) - 1;
 
